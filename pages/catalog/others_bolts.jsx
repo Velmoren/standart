@@ -1,20 +1,12 @@
-import Head from "next/head";
-import React from "react";
-import BannerTop from "../../components/BannerTop";
-import BoltServices from "../../services/boltServices";
-import Layout, { siteTitle } from "../../components/layout";
-import GoodsContent from "../../components/GoodsContent";
-
-const boltServices = new BoltServices();
+import Head from "next/head"
+import React from "react"
+import BannerTop from "../../components/BannerTop"
+import Layout, { siteTitle } from "../../components/layout"
+import GoodsContent from "../../components/GoodsContent"
+import {getOtherBolts} from '../../action/getCategories'
 
 OtherBolts.getInitialProps = async () => {
-	const otherBolts = await boltServices
-		.getAllOtherBolts()
-		.then((res) => {
-			return res.data.ListOfTypes[0].StdList;
-		})
-		.catch((e) => console.error(e));
-
+	const otherBolts = await getOtherBolts()
 	return {
 		otherBolts,
 	};

@@ -50,7 +50,6 @@ export default function SearchForm(props) {
 					border-radius: 5px;
 					box-shadow: none !important;
 					border: 1px solid #677580;
-					margin: 0 0 10px;
 					height: 40px;
 					font-size: 14px;
 					text-indent: 15px;

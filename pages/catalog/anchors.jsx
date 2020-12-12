@@ -1,20 +1,12 @@
-import Head from "next/head";
-import React from "react";
-import BannerTop from "../../components/BannerTop";
-import GoodsContent from "../../components/GoodsContent";
-import BoltServices from "../../services/boltServices";
-import Layout, { siteTitle } from "../../components/layout";
-
-const boltServices = new BoltServices();
+import Head from "next/head"
+import React from "react"
+import BannerTop from "../../components/BannerTop"
+import GoodsContent from "../../components/GoodsContent"
+import Layout, { siteTitle } from "../../components/layout"
+import {getAnchors} from '../../action/getCategories'
 
 Anchors.getInitialProps = async () => {
-	const anchors = await boltServices
-		.getAllAnchors()
-		.then((res) => {
-			return res.data.ListOfTypes[0].StdList;
-		})
-		.catch((e) => console.error(e));
-
+	const anchors = await getAnchors()
 	return {
 		anchors,
 	};

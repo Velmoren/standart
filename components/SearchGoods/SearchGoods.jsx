@@ -18,7 +18,7 @@ export default function SearchTop(props) {
 				value={searchStr}
 				onChange={updateSearchStr}
 			/>
-			<button className="button" type="submit"></button>
+			<button className="button" type="submit" />
 			<style jsx>{`
 				.form {
 					width: 100%;
@@ -56,9 +56,6 @@ export default function SearchTop(props) {
 					color: #608d98;
 					font-size: 16px;
 					outline: none;
-				}
-				.input::placeholder {
-					color: #608d98;
 				}
 
 				@media (max-width: 1200px) {

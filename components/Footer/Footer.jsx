@@ -4,6 +4,10 @@ import contacts from "../../resources/contacts";
 export default function Footer() {
 	const { city, index, adress, office, number1, number2, email } = contacts;
 
+	const logget = () => {
+		fetch('/api/bolts').then(data => data.json()).then(res => console.log(res))
+	}
+
 	return (
 		<footer className="footer">
 			<div className="container">
@@ -73,7 +77,7 @@ export default function Footer() {
 								</div>
 							</div>
 							<div className="links_item">
-								<div className="languages">
+								<div className="languages" onClick={logget}>
 									<Link href="/">
 										<a>ENG</a>
 									</Link>

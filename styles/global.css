@@ -38,6 +38,10 @@ select {
   appearance: none;
 }
 
+input::placeholder {
+  color: #608d98;
+}
+
 .p-40 {
   padding: 40px 0;
 }

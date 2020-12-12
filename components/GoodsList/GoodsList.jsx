@@ -4,19 +4,13 @@ import { useState, useEffect } from "react";
 
 function GoodsList(props) {
 	const { goods, namePage } = props;
-	const [error, setError] = useState(false);
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-		if (!goods) {
-			return setError(true);
-		} else {
-			setItems(goods);
-			return setError(false);
-		}
+		setItems(goods);
 	}, [goods]);
 
-	if (error) {
+	if (goods.length === 0) {
 		return <MessageNotFound />;
 	}
 

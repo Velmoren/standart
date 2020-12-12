@@ -1,6 +1,7 @@
 import NEWS_DATA from "../resources/news";
 import { sliceNumbers, sliceGosts } from "./halpers";
 import { incAc, addToCartAc } from "./actionsRedux";
+import axios from 'axios'
 
 const getNewsWhithId = (id) => {
 	return new Promise((resolve, reject) => {
@@ -17,6 +18,8 @@ const getNews = () => {
 	});
 };
 
+
+
 export {
 	NEWS_DATA,
 	getNewsWhithId,
@@ -24,5 +27,5 @@ export {
 	incAc,
 	addToCartAc,
 	sliceNumbers,
-	sliceGosts,
+	sliceGosts
 };

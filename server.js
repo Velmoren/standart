@@ -1,7 +1,9 @@
 const next = require('next')
 const express = require('express')
 
-const dev = process.env.NODE_ENV !== 'production'
+// const dev = process.env.NODE_ENV !== "production"
+
+const dev = true
 const app = next({dev})
 const handle = app.getRequestHandler()
 
@@ -9,11 +11,8 @@ app.prepare().then(() => {
 
     const server = express()
 
-    server.get('/api/log', (req, res) => {
-        return res.json('message: Hello world')
-    })
-
     server.get('*', (req, res) => {
+
         return handle(req, res)
     })
 
