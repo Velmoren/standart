@@ -1,16 +1,12 @@
-import Head from "next/head";
-import React from "react";
-import Layout, { siteTitle } from "../components/layout";
-import BannerTop from "../components/BannerTop";
-import NewsItems from "../components/NewsItems";
-import PagePagination from "../components/PagePagination";
-import NEWS_DATA from "../resources/news";
-import BoltServices from "../services/boltServices";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import lscache from "lscache";
-
-const boltServices = new BoltServices();
+import Head from "next/head"
+import React from "react"
+import Layout, { siteTitle } from "../components/layout"
+import BannerTop from "../components/BannerTop"
+import NewsItems from "../components/NewsItems"
+import { useSelector, useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import lscache from "lscache"
+import {getAllNews} from '../action/getOrganization'
 
 const useNews = () => {
 	const newsArray = useSelector((state) => state.news.news);
@@ -28,13 +24,7 @@ const useNews = () => {
 };
 
 News.getInitialProps = async () => {
-	const news = await boltServices
-		.getAllNews()
-		.then((res) => {
-			return res.data.MarketAction;
-		})
-		.catch((e) => console.error(e));
-
+	const news = await getAllNews()
 	return {
 		news,
 	};

@@ -114,11 +114,6 @@ export default class BoltServices {
 		return res;
 	};
 
-	getOrganization = async () => {
-		const res = await this.getResource(`/GetOrganization`);
-		return res;
-	};
-
 	getAllType = async () => {
 		const res = await this.getResource(`/StandartsByType/1`);
 		return res;

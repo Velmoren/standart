@@ -25,9 +25,9 @@ export default function NewsPage(props) {
 	if (!id) {
 		id = router.query.id;
 	}
-	console.log(id);
+
 	const newsRedItem = newsArray.find((item) => {
-		return item.id == id;
+		return item.id === +id;
 	});
 
 	const path_spans = newsRedItem ? newsRedItem.name : "";

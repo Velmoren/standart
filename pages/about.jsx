@@ -1,22 +1,13 @@
-import Head from "next/head";
-import React from "react";
-import Layout, {siteTitle} from "../components/layout";
-import BannerTop from "../components/BannerTop";
-import AboutCompany from "../components/AboutCompany";
-import Contacts from "../components/Contacts";
-import MenuCategories from "../components/MenuCategories";
-import BoltServices from "../services/boltServices";
-
-const boltServices = new BoltServices();
+import Head from "next/head"
+import React from "react"
+import Layout, {siteTitle} from "../components/layout"
+import BannerTop from "../components/BannerTop"
+import AboutCompany from "../components/AboutCompany"
+import MenuCategories from "../components/MenuCategories"
+import {getOrganization} from '../action/getOrganization'
 
 About.getInitialProps = async () => {
-    const info = await boltServices
-        .getOrganization()
-        .then((res) => {
-            return res.data;
-        })
-        .catch((e) => console.error(e));
-
+    const info = await getOrganization()
     return {
         info,
     };
