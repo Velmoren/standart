@@ -1,9 +1,10 @@
 import axios from "axios";
+import settings from '../services/settings'
 
 export const getOrganization = () => {
-    return axios.get('http://localhost:3000/api/organization/organization').then(res => res.data)
+    return axios.get(`${settings.BASE_URL}/api/organization/organization`).then(res => res.data)
 }
 
 export const getAllNews = () => {
-    return axios.get('http://localhost:3000/api/organization/news').then(res => res.data.MarketAction)
+    return axios.get(`${settings.BASE_URL}/api/organization/news`).then(res => res.data.MarketAction)
 }
