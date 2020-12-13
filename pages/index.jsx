@@ -1,16 +1,15 @@
-import Head from "next/head";
-import React from "react";
-import Layout, { siteTitle } from "../components/layout";
-import SearchForm from "../components/SearchForm";
-import CatalogAndPrice from "../components/CatalogAndPrice";
-import SliderBlock from "../components/SliderBlock";
-import Description from "../components/Description";
-import HeroGoods from "../components/HeroGoods";
-import CATALOG_ITEMS from "../resources/categories";
-import { useSelector, useDispatch } from "react-redux";
-import Router from "next/router";
-import BoltServices from "../services/boltServices";
-const boltServices = new BoltServices();
+import Head from "next/head"
+import React from "react"
+import Layout, { siteTitle } from "../components/layout"
+import SearchForm from "../components/SearchForm"
+import CatalogAndPrice from "../components/CatalogAndPrice"
+import SliderBlock from "../components/SliderBlock"
+import Description from "../components/Description"
+import HeroGoods from "../components/HeroGoods"
+import CATALOG_ITEMS from "../resources/categories"
+import { useSelector, useDispatch } from "react-redux"
+import Router from "next/router"
+import {getSearch} from '../action/getSearch'
 
 const useSearch = () => {
 	const searchStr = useSelector((state) => state.search.searchStr);
@@ -64,7 +63,7 @@ function Home() {
 	} = useSearch();
 
 	const onSubmitGoods = (str) => {
-		boltServices.getSearchItems(str).then((res) => {
+		getSearch(str).then((res) => {
 			addSearchGoods(res);
 			acChangeIsInit(true);
 			resetSearchStr("");

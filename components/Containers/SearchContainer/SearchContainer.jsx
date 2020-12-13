@@ -1,10 +1,8 @@
-import SearchTop from "../../SearchTop";
-import lscache from "lscache";
-import BoltServices from "../../../services/boltServices";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-const boltServices = new BoltServices();
+import SearchTop from "../../SearchTop"
+import lscache from "lscache"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {getSearch} from '../../../action/getSearch'
 
 const useSearch = () => {
 	const search = useSelector((state) => state.search);
@@ -69,7 +67,7 @@ export default function SearchContainer(props) {
 	} = useSearch();
 
 	const onSubmitGoods = (str) => {
-		boltServices.getSearchItems(str).then((res) => {
+		getSearch(str).then((res) => {
 			addSearchGoods(res);
 			resetSearchStr("");
 			acChangeIsInit(true);

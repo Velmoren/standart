@@ -19,31 +19,6 @@ export default class BoltServices {
 	};
 
 	// выбор вариантов/размеров одного товара
-	getItems = async (id, currentPage, countPage) => {
-		const res = await this.getResource(
-			`/Standart/${id}?offset=${currentPage}&count=${countPage}`
-		);
-
-		return res.data;
-	};
-
-	getFilterItems = async (
-		standart,
-		mat,
-		cov,
-		form,
-		dimA,
-		dimB,
-		dimC,
-		currentPage,
-		countPage
-	) => {
-		const res = await this.getResource(
-			`/Standart/${standart}?mat=${mat}&cov=${cov}&form=${form}&dimA=${dimA}&dimB=${dimB}&dimC=${dimC}&offset=${currentPage}&&count=${countPage}`
-		);
-
-		return res;
-	};
 
 	getCustomerInfo = async (id) => {
 		const res = await this.getResource(`/CustomerInfo/${id}`);
@@ -125,18 +100,6 @@ export default class BoltServices {
 		return res;
 	};
 
-	// поиск
-	getStandart = async (id) => {
-		const res = await this.getResource(
-			`/StandartsByType/c90c4463-394a-11e9-9fa8-00155d0e072e`
-		);
-	};
-
-	getSearchItems = async (str) => {
-		const res1 = await this.getResource(`/Search/${str}`);
-		return await this._transformSearchArray(res1.data.ListOfTypes);
-	};
-
 	loginUser = async (login, pass) => {
 		const res = await this.getResource(`/ClientLogin/${login}/${pass}`);
 
@@ -187,11 +150,6 @@ export default class BoltServices {
 			.catch(function (error) {
 				console.log(error);
 			});
-	};
-
-	getFilters = async (id) => {
-		const res = await this.getResource(`/Filters/${id}`);
-		return res;
 	};
 
 	_transformSearchArray = (arr) => {

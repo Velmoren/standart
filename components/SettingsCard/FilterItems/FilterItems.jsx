@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import Router from "next/router";
-import BoltServices from "../../../services/boltServices";
-const boltServices = new BoltServices();
+import { useSelector, useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import Router from "next/router"
+import BoltServices from "../../../services/boltServices"
+import {getSearch} from '../../../action/getSearch'
 
 const useFilter = () => {
 	const dispatch = useDispatch();
@@ -77,7 +77,7 @@ export default function FilterItems({
 	const onChangePage = (event) => {
 		event.preventDefault();
 		if (searchStr !== "") {
-			boltServices.getSearchItems(searchStr).then((res) => {
+			getSearch(searchStr).then((res) => {
 				addSearchGoods(res);
 				Router.push("/search");
 				resetSearchStr("");
@@ -281,10 +281,6 @@ export default function FilterItems({
 					color: #608d98;
 					font-size: 16px;
 					outline: none;
-				}
-				.input::placeholder {
-					font-size: 12px;
-					color: #608d98;
 				}
 
 				.filters {
