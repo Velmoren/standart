@@ -4,21 +4,8 @@ import BannerTop from "../components/BannerTop";
 import CatalogCards from "../components/CatalogCards";
 import CATALOG_ITEMS from "../resources/categories";
 import Layout, { siteTitle } from "../components/layout";
-import BoltServices from "../services/boltServices";
 
-const boltServices = new BoltServices();
-
-// Catalog.getInitialProps = async () => {
-// 	const goods = await boltServices.getAllType().then((res) => {
-// 		return res;
-// 	});
-
-// 	return {
-// 		goods,
-// 	};
-// };
-
-function Catalog(props) {
+function Catalog() {
 	const path_spans = "Каталог";
 	const path_link = [{ label: "Главная", path: "/" }];
 

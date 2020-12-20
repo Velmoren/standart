@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import ReactTooltip from "react-tooltip";
 import EqualizationsInfoInfo from "./EqualizationsInfo";
 import ModalWrapper from "../../ModalWrapper";
 import ModalMiniWrapper from "../../ModalMiniWrapper";
 import PagePagination from "../../PagePagination/PagePagination";
 import PageSelectCountPage from "../../PageSelectCountPage";
-import BoltServices from "../../../services/boltServices";
 import Spinner from "../../Spinner";
 import SpinnerMini from "../../SpinnerMini";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import {getCustomerEqualizations, getOrderInvoice} from '../../../action/getCustomer'
-
-const boltServices = new BoltServices();
 
 export default function CustomerEqualizationsMobile(props) {
 	const {

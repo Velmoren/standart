@@ -2,11 +2,7 @@ import GoodsList from "../../GoodsList";
 import Router from "next/router";
 import {useSelector, useDispatch} from "react-redux";
 import SearchGoods from "../../SearchGoods";
-import BoltServices from "../../../services/boltServices";
 import {getSearch} from "../../../action/getSearch";
-
-const boltServices = new BoltServices();
-
 
 const useSearch = () => {
     const searchStr = useSelector((state) => state.search.searchStr);

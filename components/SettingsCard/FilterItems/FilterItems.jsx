@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import Router from "next/router"
-import BoltServices from "../../../services/boltServices"
 import {getSearch} from '../../../action/getSearch'
 
 const useFilter = () => {
