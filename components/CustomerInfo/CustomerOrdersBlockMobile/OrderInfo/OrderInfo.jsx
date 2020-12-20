@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import Spinner from "../../../Spinner";
-import BoltServices from "../../../../services/boltServices";
-
-const boltServices = new BoltServices();
+import {getCustomerOrderInfo} from "../../../../action/getCustomer";
 
 export default function OrderInfo({ id }) {
 	const [items, setItems] = useState([]);
@@ -10,13 +8,13 @@ export default function OrderInfo({ id }) {
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		setLoading(true);
-		boltServices.getCustomerOrdersInfo(id).then((data) => {
-			setDataItems(data.data);
-			setItems(data.data.Doc_Items);
+		getCustomerOrderInfo(id).then((data) => {
+			setDataItems(data);
+			setItems(data.Doc_Items);
 			setLoading(false);
-		});
+		})
 	}, [id]);
-	console.log(items);
+
 	return (
 		<div className="box_modal" data-scroll-lock-scrollable>
 			{loading ? (

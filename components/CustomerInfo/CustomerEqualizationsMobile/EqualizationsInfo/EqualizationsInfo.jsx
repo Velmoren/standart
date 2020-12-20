@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import Spinner from "../../../Spinner";
-import BoltServices from "../../../../services/boltServices";
-
-const boltServices = new BoltServices();
+import {getCustomerEqualizationInfo} from '../../../../action/getCustomer'
 
 export default function EqualizationsInfo({ id }) {
 	const [items, setItems] = useState([]);
@@ -11,11 +9,11 @@ export default function EqualizationsInfo({ id }) {
 
 	useEffect(() => {
 		setLoading(true);
-		boltServices.getCustomerEqualizationsInfo(id).then((data) => {
-			setDataItems(data.data);
-			setItems(data.data.Doc_Items);
-			setLoading(false);
-		});
+		getCustomerEqualizationInfo(id).then((data) => {
+				setDataItems(data);
+				setItems(data.Doc_Items);
+				setLoading(false);
+			});
 	}, [id]);
 
 	return (

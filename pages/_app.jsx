@@ -10,27 +10,27 @@ import lscache from "lscache";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import Router from "next/router";
+import auth from "../reducers/auth";
 
-const useAuth = () => {
-	const auth = useSelector((state) => state.auth);
-
-	const dispatch = useDispatch();
-
-	const acUpdateIsAuth = (obj) => {
-		dispatch({
-			type: "UPDATE_IS_AUTH",
-			payload: obj,
-		});
-	};
-
-	return { auth, acUpdateIsAuth };
-};
+// const useAuth = () => {
+// 	const auth = useSelector((state) => state.auth);
+//
+// 	const dispatch = useDispatch();
+//
+// 	const acUpdateIsAuth = (obj) => {
+// 		dispatch({
+// 			type: "UPDATE_IS_AUTH",
+// 			payload: obj,
+// 		});
+// 	};
+//
+// 	return { auth, acUpdateIsAuth };
+// };
 
 const App = ({ Component, pageProps }) => {
 	const [isInitial, setIsInitial] = useState(false);
 	const [cookies, setCookie] = useCookies();
-
-	// console.log(lscache.get("auth"));
 
 	useEffect(() => {
 		if (!isInitial) {
@@ -42,10 +42,16 @@ const App = ({ Component, pageProps }) => {
 			}
 
 			if (cookies.auth) {
+
 				store.dispatch({
-					type: "UPDATE_IS_AUTH",
+					type: "UPDATE_IS_AUTH_FROM_COOKIE",
 					payload: cookies.auth,
 				});
+
+				// store.dispatch({
+				// 	type: "UPDATE_IS_LOGIN",
+				// 	payload: cookies.auth.isAuth,
+				// });
 			}
 
 			if (lscache.get("cart")) {

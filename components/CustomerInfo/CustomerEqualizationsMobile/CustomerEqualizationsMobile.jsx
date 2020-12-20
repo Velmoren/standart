@@ -9,6 +9,7 @@ import BoltServices from "../../../services/boltServices";
 import Spinner from "../../Spinner";
 import SpinnerMini from "../../SpinnerMini";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
+import {getCustomerEqualizations, getOrderInvoice} from '../../../action/getCustomer'
 
 const boltServices = new BoltServices();
 
@@ -41,34 +42,21 @@ export default function CustomerEqualizationsMobile(props) {
 	useEffect(() => {
 		setIsLoading(true);
 		if (userId !== "") {
-			boltServices
-				.getCustomerEqualizations(
-					userId,
-					currentPage,
-					countPage,
-					startData,
-					endData
-				)
-				.then((data) => {
-					console.log(data);
-					acChangeEqualization(data.data.Documents);
-					setIsLoading(false);
-					acChangeSize(Math.ceil(data.data.totalsize / countPage));
-				});
+			getCustomerEqualizations(userId, currentPage, countPage, startData, endData).then((data) => {
+				acChangeEqualization(data.Documents);
+				setIsLoading(false);
+				acChangeSize(Math.ceil(data.totalsize / countPage));
+			})
 		}
 	}, [userId, currentPage, countPage, startData, endData]);
 
 	useEffect(() => {
 		setIsMiniLoading(true);
 		if (isDownload) {
-			boltServices.getOrderInvoice(downloadId).then((res) => {
-				setUrlPdf(
-					res.data.Invoice
-						? "http://pic.standart.by/" + res.data.Invoice.substr(12)
-						: ""
-				);
+			getOrderInvoice(downloadId).then((res) => {
+				setUrlPdf(res === 0 ? "" : res)
 				setIsMiniLoading(false);
-			});
+			})
 		}
 	}, [isDownload]);
 

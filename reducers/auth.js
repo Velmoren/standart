@@ -61,6 +61,12 @@ const auth = (state = initialState, action) => {
 				...state,
 				isRemember: action.payload,
 			};
+		case "UPDATE_IS_AUTH_FROM_COOKIE":
+			return {
+				...state,
+				isAuth: action.payload.isAuth,
+				userId: action.payload.id
+			};
 
 		case "IS_LOGOUT":
 			return {

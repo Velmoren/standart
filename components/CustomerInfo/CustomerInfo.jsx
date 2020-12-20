@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
-import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import CustomerInfoBlock from "./CustomerInfoBlock";
-import Spinner from "../Spinner";
 import lscache from "lscache";
 import CustomerOrdersBlock from "./CustomerOrdersBlock";
 import CustomerOrdersBlockMobile from "./CustomerOrdersBlockMobile";
 import CustomerEqualizations from "./CustomerEqualizations";
 import CustomerEqualizationsMobile from "./CustomerEqualizationsMobile";
-import BoltServices from "../../services/boltServices";
 import InputDate from "../Elements/InputDate";
 import CustomerPayments from "./CustomerPayments";
 import CustomerPaymentsMobile from "./CustomerPaymentsMobile";
-const boltServices = new BoltServices();
 
 const useAuth = () => {
 	const userId = useSelector((state) => state.auth.userId);
@@ -139,6 +135,7 @@ const useAuth = () => {
 
 export default function CustomerInfo() {
 	const {
+		isAuth,
 		userId,
 		customer,
 		tabs,

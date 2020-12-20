@@ -2,7 +2,6 @@ import axios from "axios";
 import settings from '../services/settings'
 
 export const getBolts = () => {
-    console.log(settings)
     return axios.get(`${settings.BASE_URL}/api/categories/bolts`).then(res => res.data.ListOfTypes.length === 0 ? [] : res.data.ListOfTypes[0].StdList)
 }
 

@@ -1,18 +1,16 @@
 import OrderInfo from "./OrderInfo";
-import Link from "next/link";
 import ReactTooltip from "react-tooltip";
 import ModalWrapper from "../../ModalWrapper";
 import { useState, useEffect } from "react";
 import Spinner from "../../Spinner";
 import SpinnerMini from "../../SpinnerMini";
-import BoltServices from "../../../services/boltServices";
 import ExpressPayServices from "../../../services/ExpressPayServices";
 import PagePagination from "../../PagePagination/PagePagination";
 import PageSelectCountPage from "../../PageSelectCountPage";
 import ModalMiniWrapper from "../../ModalMiniWrapper/ModalMiniWrapper";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
+import {getCustomerOrders, getOrderInvoice} from '../../../action/getCustomer'
 
-const boltServices = new BoltServices();
 const expressPayServices = new ExpressPayServices();
 
 export default function CustomerOrdersBlock(props) {
@@ -53,28 +51,23 @@ export default function CustomerOrdersBlock(props) {
 
 	useEffect(() => {
 		setIsLoading(true);
+
 		if (userId !== "") {
-			boltServices
-				.getCustomerOrders(userId, currentPage, countPage, startData, endData)
-				.then((data) => {
-					acChangeOrders(data.data.Documents);
-					setIsLoading(false);
-					acChangeSize(Math.ceil(data.data.totalsize / countPage));
-				});
+			getCustomerOrders(userId, currentPage, countPage, startData, endData).then((data) => {
+						acChangeOrders(data.Documents);
+						setIsLoading(false);
+						acChangeSize(Math.ceil(data.totalsize / countPage));
+			})
 		}
 	}, [userId, currentPage, countPage, startData, endData]);
 
 	useEffect(() => {
 		setIsMiniLoading(true);
 		if (isDownload) {
-			boltServices.getOrderInvoice(downloadId).then((res) => {
-				setUrlPdf(
-					res.data.Invoice
-						? "http://pic.standart.by/" + res.data.Invoice.substr(12)
-						: ""
-				);
+			getOrderInvoice(downloadId).then((res) => {
+				setUrlPdf(res === 0 ? "" : res)
 				setIsMiniLoading(false);
-			});
+			})
 		}
 	}, [isDownload]);
 

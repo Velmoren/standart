@@ -47,7 +47,7 @@ export default function LogInForm(props) {
 					<div className="form_control_wrap">
 						<label htmlFor="LogInFormPassword">Пароль</label>
 						<div className="forgotYourPass">
-							<Link href="">
+							<Link href="/">
 								<a>Забыли пароль?</a>
 							</Link>
 						</div>

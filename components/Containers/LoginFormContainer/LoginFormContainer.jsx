@@ -3,9 +3,7 @@ import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import BoltServices from "../../../services/boltServices";
-
-const boltServices = new BoltServices();
+import {loginUser} from '../../../action/getAuth'
 
 const useAuth = () => {
 	const auth = useSelector((state) => state.auth);
@@ -110,9 +108,10 @@ export default function LoginFormContainer({ acChangeAuthPage }) {
 	useEffect(() => {
 		if (isInitial) {
 			// isRemember ? lscache.set("auth", auth) : lscache.set("auth", auth, 60);
-			isRemember
-				? setCookie("auth", auth, { path: "/", maxAge: 604800 })
-				: setCookie("auth", auth, { path: "/", maxAge: 3600 });
+			console.log(auth)
+			// isRemember
+			// 	? setCookie("auth", auth, { path: "/", maxAge: 604800 })
+			// 	: setCookie("auth", auth, { path: "/", maxAge: 3600 });
 		}
 	}, [auth]);
 
@@ -120,9 +119,13 @@ export default function LoginFormContainer({ acChangeAuthPage }) {
 		e.target.checked ? acUpdateRemember(true) : acUpdateRemember(false);
 	};
 
-	const authIsOk = (id) => {
+	const authIsOk = async (id) => {
 		updateIsAuth(true);
 		acUpdateUserId(id);
+
+		isRemember
+			? setCookie("auth", {id, isAuth: true}, { path: "/", maxAge: 604800 })
+			: setCookie("auth", {id, isAuth: true}, { path: "/", maxAge: 3600 });
 	};
 
 	const updateUserName = (str) => {
@@ -145,15 +148,16 @@ export default function LoginFormContainer({ acChangeAuthPage }) {
 			acUpdateUserPasswordError("Введите пароль");
 			return;
 		}
-		await boltServices.loginUser(userName, userPassword).then((res) => {
-			res.data.Access
-				? authIsOk(res.data.Client_id)
-				: res.data.Status === "NotFound"
-				? acUpdateUserNameError("Данного имени пользователя не существует")
-				: res.data.Status === "WrongPass"
-				? acUpdateUserPasswordError("Введен неверный пароль")
-				: null;
-		});
+
+		await loginUser(userName, userPassword).then((data) => {
+				data.Access
+					? authIsOk(data.Client_id)
+					: data.Status === "NotFound"
+					? acUpdateUserNameError("Данного имени пользователя не существует")
+					: data.Status === "WrongPass"
+					? acUpdateUserPasswordError("Введен неверный пароль")
+					: null;
+				});
 	};
 
 	return (

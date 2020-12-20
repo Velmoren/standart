@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import PagePagination from "../../PagePagination/PagePagination";
 import PageSelectCountPage from "../../PageSelectCountPage";
-import BoltServices from "../../../services/boltServices";
 import Spinner from "../../Spinner";
-
-const boltServices = new BoltServices();
+import {getCustomerPayments} from '../../../action/getCustomer'
 
 export default function CustomerPayments(props) {
 	const {
@@ -28,12 +26,11 @@ export default function CustomerPayments(props) {
 	useEffect(() => {
 		setIsLoading(true);
 		if (userId !== "") {
-			boltServices
-				.getCustomerPayments(userId, currentPage, countPage, startData, endData)
+			getCustomerPayments(userId, currentPage, countPage, startData, endData)
 				.then((data) => {
-					acChangePayments(data.data.Documents);
+					acChangePayments(data.Documents);
 					setIsLoading(false);
-					acChangeSize(Math.ceil(data.data.totalsize / countPage));
+					acChangeSize(Math.ceil(data.totalsize / countPage));
 				});
 		}
 	}, [userId, currentPage, countPage, startData, endData]);
@@ -56,7 +53,6 @@ export default function CustomerPayments(props) {
 					{!isLoading ? (
 						<>
 							{payments.map((order, index) => {
-								console.log(order);
 								return (
 									<tr key={index}>
 										<th className="th th-1">{order.Doc_Number}</th>

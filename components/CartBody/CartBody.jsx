@@ -6,10 +6,8 @@ import MessageCartEmpty from "../Elements/MessageCartEmpty";
 import lscache from "lscache";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import BoltServices from "../../services/boltServices";
 import SettingsCart from "./SettingsCart";
-
-const boltServices = new BoltServices();
+import {newCartOrder} from '../../action/getOrder'
 
 const useCart = () => {
 	const typePayment = useSelector((state) => state.cart.typePayment);
@@ -126,7 +124,7 @@ function CartBody() {
 
 	const submitOrder = () => {
 
-		const obj = {
+		const order = {
 			Client_id: auth.userId,
 			Comment: comment,
 			delivery: typeDelivery,
@@ -134,9 +132,7 @@ function CartBody() {
 			payment: typePayment,
 			goods: cartItems,
 		};
-
-		boltServices
-			.newCartOrder(obj)
+		newCartOrder(order)
 			.then(() => {
 				acOnRemoveCart();
 				setIsSend(true);
