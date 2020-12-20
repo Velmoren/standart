@@ -4,14 +4,12 @@ import ModalWrapper from "../../ModalWrapper";
 import { useState, useEffect } from "react";
 import Spinner from "../../Spinner";
 import SpinnerMini from "../../SpinnerMini";
-import ExpressPayServices from "../../../services/ExpressPayServices";
 import PagePagination from "../../PagePagination/PagePagination";
 import PageSelectCountPage from "../../PageSelectCountPage";
 import ModalMiniWrapper from "../../ModalMiniWrapper/ModalMiniWrapper";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import {getCustomerOrders, getOrderInvoice} from '../../../action/getCustomer'
-
-const expressPayServices = new ExpressPayServices();
+import {getEripPayment, getCardPayment} from '../../../action/getPayment'
 
 export default function CustomerOrdersBlock(props) {
 	const {
@@ -75,20 +73,20 @@ export default function CustomerOrdersBlock(props) {
 		setModalEripLink(true);
 		setModalEripLoading(true);
 
-		expressPayServices.getEripPay(num, sum, cur, info).then((res) => {
-			setEripLink(res.data.InvoiceUrl);
+		getEripPayment(num, sum, cur, info).then((data) => {
+			setEripLink(data.InvoiceUrl);
 			setModalEripLoading(false);
-		});
+		})
 	};
 
 	const getCardPay = (num, sum, cur, info) => {
 		setModalCardLink(true);
 		setModalCardLoading(true);
 
-		expressPayServices.getEripPay(num, sum, cur, info).then((res) => {
-			setCardLink(res.data.InvoiceUrl);
+		getCardPayment(num, sum, cur, info).then((data) => {
+			setCardLink(data.FormUrl);
 			setModalCardLoading(false);
-		});
+		})
 	};
 
 	return (
