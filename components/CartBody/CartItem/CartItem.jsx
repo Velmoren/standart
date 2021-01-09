@@ -9,6 +9,7 @@ export default function CartItem(props) {
         acOnIncCount,
         acOnDecCount,
     } = props;
+    console.log(cartItem)
 
     const {
         dimA,

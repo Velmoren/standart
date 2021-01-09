@@ -6,6 +6,7 @@
 .pnp.js
 package-lock.json
 server.js
+/services/*
 
 # testing
 /coverage
@@ -35,5 +36,7 @@ web.config
 .gitignore
 /old/
 /iisnode/
-/services/settings.js
+
 /server
+/services/settings.js
+.gitignore

@@ -1,4 +1,5 @@
 import CartItem from "./CartItem";
+import TotalSum from "./TotalSum";
 import Link from "next/link";
 import ModalMiniWrapper from "../ModalMiniWrapper";
 import Router from "next/router";
@@ -18,6 +19,8 @@ const useCart = () => {
 	const auth = useSelector((state) => state.auth);
 	const cart = useSelector((state) => state.cart);
 	const cartItems = useSelector((state) => state.cart.cartItems);
+	const total = useSelector((state) => state.cart.totalPrice);
+
 	const dispatch = useDispatch();
 
 	const acOnRemoveCart = () => {
@@ -75,10 +78,12 @@ const useCart = () => {
 		acOnIncCount,
 		acOnDecCount,
 		acOnResetComments,
+		total
 	};
 };
 
-function CartBody() {
+function CartBody(props) {
+
 	const {
 		isAuth,
 		auth,
@@ -94,11 +99,15 @@ function CartBody() {
 		acOnIncCount,
 		acOnDecCount,
 		acOnResetComments,
+		total
 	} = useCart();
+
+	const {minPrice} = props
 
 	const [isInitial, setIsInitial] = useState(false);
 	const [isModal, setIsModal] = useState(false);
 	const [isSend, setIsSend] = useState(false);
+	const [isMinTotal, setIsMinTotal] = useState(false);
 
 	const onRemoveCart = () => {
 		acOnRemoveCart();
@@ -146,7 +155,7 @@ function CartBody() {
 	};
 
 	const onSubmitCart = () => {
-		auth.isAuth ? submitOrder() : setIsModal(true);
+		minPrice.OrderMinPrice <= total ? auth.isAuth ? submitOrder() : setIsModal(true) : setIsMinTotal(true)
 	};
 
 	return (
@@ -221,6 +230,8 @@ function CartBody() {
 						);
 					})}
 
+					<TotalSum minPrice={minPrice}/>
+
 					<SettingsCart />
 
 					<div className="button-block">
@@ -234,8 +245,14 @@ function CartBody() {
 			)}
 
 			{isSend ? (
-				<ModalMiniWrapper setIsModal={setIsModal}>
+				<ModalMiniWrapper setIsModal={setIsSend}>
 					<span className="MessText">Благодарим за оформление заказа!</span>
+				</ModalMiniWrapper>
+			) : null}
+
+			{isMinTotal ? (
+				<ModalMiniWrapper setIsModal={setIsMinTotal}>
+					<span className="MessText">Минимальная сумма заказа {minPrice.OrderMinPrice} руб.</span>
 				</ModalMiniWrapper>
 			) : null}
 
@@ -421,6 +438,10 @@ function CartBody() {
 						padding: 10px 15px;
 						font-size: 10px;
 					}
+					
+					.MessText {
+						font-size: 18px;
+					}
 				}
 				@media (max-width: 768px) {
 					.head {
@@ -469,6 +490,10 @@ function CartBody() {
 
 					.button-block {
 						justify-content: center;
+					}
+					
+					.MessText {
+						font-size: 14px;
 					}
 				}
 

@@ -143,7 +143,6 @@ export default function SettingsCart() {
 					display: flex;
 					justify-content: space-between;
 					border-top: 2px solid black;
-					margin-top: 100px;
 				}
 
 				.settings_total_item {
