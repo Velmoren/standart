@@ -2,99 +2,127 @@ import Link from "next/link";
 import contacts from "../../resources/contacts";
 
 export default function Footer() {
-	const { city, index, adress, office, number1, number2, email } = contacts;
+    const {city, index, adress, office, number1, number2, email, unp} = contacts;
 
-	const logget = () => {
-		fetch('/api/bolts').then(data => data.json()).then(res => console.log(res))
-	}
+    const logget = () => {
+        fetch('/api/bolts').then(data => data.json()).then(res => console.log(res))
+    }
 
-	return (
-		<footer className="footer">
-			<div className="container">
-				<div className="box">
-					<div className="top">
-						<div className="links">
-							<div className="links_item">
-								<Link href="/catalog">
-									<a>
-										<strong>Каталог</strong>
-									</a>
-								</Link>
-								<Link href="/news">
-									<a>
-										<strong>Новости</strong>
-									</a>
-								</Link>
-								<Link href="/about">
-									<a>
-										<strong>О компании</strong>
-									</a>
-								</Link>
-								<Link href="/contacts">
-									<a>
-										<strong>Контакты</strong>
-									</a>
-								</Link>
-							</div>
-							<div className="links_item">
-								<div className="contacts">
-									<strong>АДРЕС</strong>
+    return (
+        <footer className="footer">
+            <div className="container">
+                <div className="box">
+                    <div className="top">
+                        <div className="links">
+                            <div className="links_item">
+                                <Link href="/catalog">
+                                    <a>
+                                        <strong>Каталог</strong>
+                                    </a>
+                                </Link>
+                                <Link href="/news">
+                                    <a>
+                                        <strong>Новости</strong>
+                                    </a>
+                                </Link>
+                                <Link href="/about">
+                                    <a>
+                                        <strong>О компании</strong>
+                                    </a>
+                                </Link>
+                                <Link href="/contacts">
+                                    <a>
+                                        <strong>Контакты</strong>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div className="links_item">
+                                <div className="contacts">
 									<span>
 										{index} {city}
 									</span>
-									<span>
+                                    <span>
 										{adress}, {office}
 									</span>
-								</div>
-								<div className="contacts">
-									<strong>ВРЕМЯ РАБОТЫ</strong>
-									<span>пн.-пт. 09:00-17:00</span>
-								</div>
-							</div>
-							<div className="links_item">
-								<div className="contacts">
-									<strong>ТЕЛЕФОНЫ</strong>
-									<a href={`tel:${number1}`}>{number1}</a>
-									<a href={`tel:${number2}`}>{number2}</a>
-								</div>
-								<div className="contacts">
-									<strong>E-MAIL</strong>
-									<a href={`mailto:${email}`}>{email}</a>
-								</div>
-							</div>
-							<div className="links_item">
-								<div className="catalogs">
-									<a
-										href="http://pic.standart.by/catalog_pdf/Katalog_STANDART.pdf"
-										className="catalog"
-										download
-									>
-										<span>каталог</span>
-									</a>
-									<a href="#" className="price">
-										<span>прайс-лист</span>
-									</a>
-								</div>
-							</div>
-							<div className="links_item">
-								<div className="languages" onClick={logget}>
-									<Link href="/">
-										<a>ENG</a>
-									</Link>
-									<Link href="/">
-										<a>РУС</a>
-									</Link>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="down">
-						<span>© 2017 Все права защищены. ООО "СтандартКонтакт"</span>
-					</div>
-				</div>
-			</div>
+                                </div>
+                                <div className="contacts">
+                                    <strong>ВРЕМЯ РАБОТЫ</strong>
+                                    <span>пн.-пт. 09:00-17:00</span>
+                                </div>
+                                <div className="unp">
+                                    <strong>УНП</strong>
+                                    <span>
+										{unp}
+									</span>
+                                </div>
+                            </div>
+                            <div className="links_item">
+                                <div className="contacts">
+                                    <strong>ТЕЛЕФОНЫ</strong>
+                                    <a href={`tel:${number1}`}>{number1}</a>
+                                    <a href={`tel:${number2}`}>{number2}</a>
+                                </div>
+                                <div className="contacts">
+                                    <strong>E-MAIL</strong>
+                                    <a href={`mailto:${email}`}>{email}</a>
+                                </div>
+                            </div>
+                            <div className="links_item">
+                                <div className="catalogs">
+                                    <a
+                                        href="http://pic.standart.by/catalog_pdf/Katalog_STANDART.pdf"
+                                        className="catalog"
+                                        download
+                                    >
+                                        <span>каталог</span>
+                                    </a>
+                                    <a href="#" className="price">
+                                        <span>прайс-лист</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="links_item">
+                                <div className="languages" onClick={logget}>
+                                    <Link href="/">
+                                        <a>ENG</a>
+                                    </Link>
+                                    <Link href="/">
+                                        <a>РУС</a>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="payment-logo">
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/MasterCardSecureCode.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/MasterCard.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/Visa.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/visa-secure.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/Webpay.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/Белкарт.png" alt=""/>
+                        </span>
+                        <span className="payment-logo__item">
+                            <img src="/image/logos-payment/БелкартИнтернетПароль.png" alt=""/>
+                        </span>
+                    </div>
+                    <div className="down">
+                        <span>© 2017 Все права защищены. ООО "СтандартКонтакт"</span>
+                    </div>
+                </div>
+            </div>
 
-			<style jsx>{`
+            <style jsx>{`
 				.footer {
 					padding: 15px 0;
 					background-color: #404c54;
@@ -135,6 +163,11 @@ export default function Footer() {
 				}
 
 				.contacts {
+					display: flex;
+					flex-direction: column;
+				}
+				
+				.unp {
 					display: flex;
 					flex-direction: column;
 				}
@@ -181,6 +214,24 @@ export default function Footer() {
 				.languages > a:hover {
 					opacity: 0.7;
 				}
+				
+				.payment-logo {
+                   display:flex;
+                   justify-content:flex-end;
+                   padding: 5px 0;
+				}
+				
+				.payment-logo__item {
+				  display:flex;
+				  align-items: center;
+				  margin: 0 5px;
+				  max-height: 30px;
+				}
+				
+				.payment-logo__item img {
+				  max-width: none;
+				  max-height: 100%;
+				}
 
 				@media (max-width: 991px) {
 					.links {
@@ -218,6 +269,13 @@ export default function Footer() {
 					.down {
 						display: flex;
 						justify-content: center;
+					}
+					
+					.payment-logo {
+					  justify-content: center;
+					}
+					.payment-logo__item {
+					  height: 17px;
 					}
 				}
 
@@ -295,8 +353,12 @@ export default function Footer() {
 					.links_item:nth-child(1) {
 						font-size: 10px;
 					}
+					
+					.payment-logo__item {
+					  height: 15px;
+					}
 				}
 			`}</style>
-		</footer>
-	);
+        </footer>
+    );
 }

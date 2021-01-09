@@ -1,3 +1,3 @@
 export default {
-    BASE_URL: 'http://site.standart.by'
-}
+	BASE_URL: "http://localhost:3000",
+};

@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 package-lock.json
+server.js
+
 # testing
 /coverage
 
@@ -28,9 +30,10 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-server.js
+
 web.config
 .gitignore
 /old/
 /iisnode/
-/services/
+/services/settings.js
+/server
