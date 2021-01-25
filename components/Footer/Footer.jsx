@@ -93,36 +93,30 @@ export default function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="payment-logo">
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/MasterCardSecureCode.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/MasterCard.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/Visa.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/visa-secure.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/Webpay.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/Белкарт.png" alt=""/>
-                        </span>
-                        <span className="payment-logo__item">
-                            <img src="/image/logos-payment/БелкартИнтернетПароль.png" alt=""/>
-                        </span>
-                    </div>
                     <div className="down">
+                        <div className="payment-logo">
+                            <div className="payment-logo__item payment-logo__item-1">
+                                <img src="/image/logos-payment/visa.svg" alt="visa"/>
+                            </div>
+                            <div className="payment-logo__item payment-logo__item-2">
+                                <img src="/image/logos-payment/maestro.svg" alt="maestro"/>
+                            </div>
+                            <div className="payment-logo__item payment-logo__item-3">
+                                <img src="/image/logos-payment/belcard-squire.png" alt="belcard"/>
+                            </div>
+                            <div className="payment-logo__item payment-logo__item-4">
+                                <img src="/image/logos-payment/mastercard.svg" alt="mastercard"/>
+                            </div>
+                            <div className="payment-logo__item payment-logo__item-5">
+                                <img src="/image/logos-payment/erip.png" alt="erip"/>
+                            </div>
+                        </div>
                         <span>© 2017 Все права защищены. ООО "СтандартКонтакт"</span>
                     </div>
                 </div>
             </div>
 
-            <style jsx>{`
+            <style lang="scss" jsx>{`
 				.footer {
 					padding: 15px 0;
 					background-color: #404c54;
@@ -219,18 +213,60 @@ export default function Footer() {
                    display:flex;
                    justify-content:flex-end;
                    padding: 5px 0;
+                   //background-color: #596670;
+                   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                   border-radius: 5px;
 				}
 				
 				.payment-logo__item {
-				  display:flex;
-				  align-items: center;
-				  margin: 0 5px;
-				  max-height: 30px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin: 0 10px;
 				}
 				
 				.payment-logo__item img {
-				  max-width: none;
-				  max-height: 100%;
+                   object-fit: cover;
+                   max-width: none;
+				}
+				
+				.payment-logo__item-1 {
+				  width: 50px;
+				}
+				.payment-logo__item-2 {
+				  width: 50px;
+				}
+				.payment-logo__item-3 {
+				  width: 30px;
+				}
+				.payment-logo__item-4 {
+				  width: 50px;
+				}
+				.payment-logo__item-5 {
+				  width: 75px;
+				}
+				
+				.payment-logo__item-1 img{
+				  height: 30px;
+				  width: 60px;
+				}
+				.payment-logo__item-2 img, .payment-logo__item-4 img{
+				  height: 30px;
+				  width: 50px;
+				}
+				.payment-logo__item-3 img{
+				  height: 30px;
+				  width: 30px;
+				}
+				.payment-logo__item-5 img{
+                  height: 25px;
+                  width: 75px;
+				}
+				
+				.down {
+				  display: flex;
+				  justify-content: space-between;
+				  align-items: flex-end;
 				}
 
 				@media (max-width: 991px) {
@@ -265,19 +301,48 @@ export default function Footer() {
 						flex-direction: column;
 						align-items: flex-end;
 					}
-
-					.down {
-						display: flex;
-						justify-content: center;
-					}
 					
 					.payment-logo {
 					  justify-content: center;
 					}
+					
 					.payment-logo__item {
-					  height: 17px;
+					  margin: 0 5px;
 					}
-				}
+	
+					.payment-logo__item-1 {
+                      width: 50px;
+                    }
+                    .payment-logo__item-2 {
+                      width: 50px;
+                    }
+                    .payment-logo__item-3 {
+                      width: 30px;
+                    }
+                    .payment-logo__item-4 {
+                      width: 50px;
+                    }
+                    .payment-logo__item-5 {
+                      width: 75px;
+                    }
+                        
+                    .payment-logo__item-1 img{
+                      height: 20px;
+                      width: 50px;
+                    }
+                    .payment-logo__item-2 img, .payment-logo__item-4 img{
+                      height: 20px;
+                      width: 30px;
+                    }
+                    .payment-logo__item-3 img{
+                      height: 20px;
+                      width: 20px;
+                    }
+                    .payment-logo__item-5 img{
+                      height: 15px;
+                      width: 50px;
+                    }
+                }
 
 				@media (max-width: 768px) {
 					.footer {
@@ -303,6 +368,15 @@ export default function Footer() {
 					.languages a {
 						padding: 5px;
 						width: 35px;
+					}
+					
+					.down {
+					  flex-direction: column;
+					  align-items: center;
+					}
+					
+					.down .payment-logo {
+					  margin-bottom: 20px;
 					}
 				}
 
@@ -355,7 +429,7 @@ export default function Footer() {
 					}
 					
 					.payment-logo__item {
-					  height: 15px;
+					  margin: 0;
 					}
 				}
 			`}</style>

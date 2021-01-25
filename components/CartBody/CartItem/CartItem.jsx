@@ -9,7 +9,6 @@ export default function CartItem(props) {
         acOnIncCount,
         acOnDecCount,
     } = props;
-    console.log(cartItem)
 
     const {
         dimA,
@@ -31,10 +30,12 @@ export default function CartItem(props) {
         priceForHundredAndNDS,
     } = cartItem;
 
+    const imagePath = "http://pic.standart.by/" + image[0].FilePath.substr(12)
+
     return (
         <div className="body">
             <div className="image">
-                <img src={image ? image : "/image/prod_img.jpg"} alt=""/>
+                <img src={imagePath ? imagePath : "/image/prod_img.jpg"} alt=""/>
             </div>
 
             <div className="text_box">

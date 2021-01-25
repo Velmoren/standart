@@ -1,11 +1,23 @@
 import InputRadio from "../../Elements/InputRadio";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import {
+	YMaps,
+	Map,
+	Clusterer,
+	Placemark,
+	FullscreenControl,
+	TrafficControl,
+	SearchControl,
+	GeolocationControl,
+	ZoomControl,
+} from "react-yandex-maps";
 
 const useCart = () => {
 	const comment = useSelector((state) => state.cart.comment);
 	const deliveryAdress = useSelector((state) => state.cart.deliveryAdress);
 	const dispatch = useDispatch();
+
 
 	const acOnChengeComment = (str) => {
 		dispatch({
@@ -56,22 +68,25 @@ export default function SettingsCart() {
 	} = useCart();
 
 	const [isAdress, setIsAdress] = useState(false);
-
+	const loadSuggest = ymaps => {
+		const suggestView = new ymaps.SuggestView("suggest");
+		suggestView.events.add("select", (e) => {
+			changeDeliveryAdress(e.get("item").value)
+		});
+	};
 	const changeComment = (e) => {
 		let value = e.target.value;
 		acOnChengeComment(value);
 	};
 
-	const changeDeliveryAdress = (e) => {
-		let value = e.target.value;
-		acOnChengeDeliveruAdress(value);
+	const changeDeliveryAdress = (str) => {
+		acOnChengeDeliveruAdress(str);
 	};
 
 	const changeDelivery = (str) => {
 		acOnChengeDelivery(str);
 		acOnChengeDeliveruAdress("");
 		str === "Доставка" ? setIsAdress(true) : setIsAdress(false);
-		console.log(isAdress);
 	};
 
 	const changePayment = (str) => {
@@ -92,6 +107,7 @@ export default function SettingsCart() {
 					value={comment}
 				></textarea>
 			</div>
+
 			<div className="settings_total_item">
 				<h3>Условия получения товара</h3>
 				<InputRadio
@@ -112,11 +128,22 @@ export default function SettingsCart() {
 					<div className="adressBlock">
 						<input
 							type="text"
-							id="adress"
-							placeholder="Адрес доставки"
 							value={deliveryAdress}
-							onChange={changeDeliveryAdress}
+							className="form-control"
+							id="suggest"
+							placeholder="Адрес доставки"
+							onChange={(e) => {
+								changeDeliveryAdress(e.target.value)
+							}}
 						/>
+						<YMaps>
+							<Map
+								className="map-block"
+								onLoad={ymaps => loadSuggest(ymaps)}
+								defaultState={{ center: [55.751574, 37.573856], zoom: 9 }}
+								modules={["SuggestView"]}
+							/>
+						</YMaps>
 					</div>
 				) : null}
 			</div>
@@ -137,7 +164,11 @@ export default function SettingsCart() {
 					checked={false}
 				/>
 			</div>
+
 			<style jsx>{`
+				.map-block {
+					visibility: hidden;
+				}
 				.settings_total {
 					padding: 25px 0;
 					display: flex;

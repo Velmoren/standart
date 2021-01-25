@@ -3,6 +3,7 @@ import "../styles/datapicker.css";
 import "../styles/sliderBlock.css";
 import "../styles/map.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 import { Provider } from "react-redux";
 import store from "../store";

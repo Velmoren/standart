@@ -8,267 +8,266 @@ import lscache from "lscache";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SettingsCart from "./SettingsCart";
-import {newCartOrder} from '../../action/getOrder'
+import { newCartOrder } from '../../action/getOrder'
 
 const useCart = () => {
-	const typePayment = useSelector((state) => state.cart.typePayment);
-	const typeDelivery = useSelector((state) => state.cart.typeDelivery);
-	const deliveryAdress = useSelector((state) => state.cart.deliveryAdress);
-	const isAuth = useSelector((state) => state.auth.isAuth);
-	const comment = useSelector((state) => state.cart.comment);
-	const auth = useSelector((state) => state.auth);
-	const cart = useSelector((state) => state.cart);
-	const cartItems = useSelector((state) => state.cart.cartItems);
-	const total = useSelector((state) => state.cart.totalPrice);
+    const typePayment = useSelector((state) => state.cart.typePayment);
+    const typeDelivery = useSelector((state) => state.cart.typeDelivery);
+    const deliveryAdress = useSelector((state) => state.cart.deliveryAdress);
+    const isAuth = useSelector((state) => state.auth.isAuth);
+    const comment = useSelector((state) => state.cart.comment);
+    const auth = useSelector((state) => state.auth);
+    const cart = useSelector((state) => state.cart);
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const total = useSelector((state) => state.cart.totalPrice);
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	const acOnRemoveCart = () => {
-		dispatch({
-			type: "REMOVE_CART",
-		});
-	};
+    const acOnRemoveCart = () => {
+        dispatch({
+            type: "REMOVE_CART",
+        });
+    };
 
-	const acOnClear = (id) => {
-		dispatch({
-			type: "CLEAR_CART_ITEM",
-			payload: id,
-		});
-	};
+    const acOnClear = (id) => {
+        dispatch({
+            type: "CLEAR_CART_ITEM",
+            payload: id,
+        });
+    };
 
-	const acOnChangeCount = (val, id) => {
-		dispatch({
-			type: "CHANGE_COUNT_CART_ITEMS",
-			payload: { value: val, id: id },
-		});
-	};
+    const acOnChangeCount = (val, id) => {
+        dispatch({
+            type: "CHANGE_COUNT_CART_ITEMS",
+            payload: { value: val, id: id },
+        });
+    };
 
-	const acOnIncCount = (id) => {
-		dispatch({
-			type: "INCREMENT_CART_ITEMS",
-			payload: id,
-		});
-	};
+    const acOnIncCount = (id) => {
+        dispatch({
+            type: "INCREMENT_CART_ITEMS",
+            payload: id,
+        });
+    };
 
-	const acOnDecCount = (id) => {
-		dispatch({
-			type: "DECREMENT_CART_ITEMS",
-			payload: id,
-		});
-	};
+    const acOnDecCount = (id) => {
+        dispatch({
+            type: "DECREMENT_CART_ITEMS",
+            payload: id,
+        });
+    };
 
-	const acOnResetComments = () => {
-		dispatch({
-			type: "RESET_COMMENTS",
-		});
-	};
+    const acOnResetComments = () => {
+        dispatch({
+            type: "RESET_COMMENTS",
+        });
+    };
 
-	return {
-		isAuth,
-		auth,
-		typePayment,
-		typeDelivery,
-		deliveryAdress,
-		comment,
-		cart,
-		cartItems,
-		acOnRemoveCart,
-		acOnClear,
-		acOnChangeCount,
-		acOnIncCount,
-		acOnDecCount,
-		acOnResetComments,
-		total
-	};
+    return {
+        isAuth,
+        auth,
+        typePayment,
+        typeDelivery,
+        deliveryAdress,
+        comment,
+        cart,
+        cartItems,
+        acOnRemoveCart,
+        acOnClear,
+        acOnChangeCount,
+        acOnIncCount,
+        acOnDecCount,
+        acOnResetComments,
+        total
+    };
 };
 
 function CartBody(props) {
 
-	const {
-		isAuth,
-		auth,
-		typePayment,
-		typeDelivery,
-		deliveryAdress,
-		comment,
-		cart,
-		cartItems,
-		acOnRemoveCart,
-		acOnClear,
-		acOnChangeCount,
-		acOnIncCount,
-		acOnDecCount,
-		acOnResetComments,
-		total
-	} = useCart();
+    const {
+        isAuth,
+        auth,
+        typePayment,
+        typeDelivery,
+        deliveryAdress,
+        comment,
+        cart,
+        cartItems,
+        acOnRemoveCart,
+        acOnClear,
+        acOnChangeCount,
+        acOnIncCount,
+        acOnDecCount,
+        acOnResetComments,
+        total
+    } = useCart();
 
-	const {minPrice} = props
+    const { minPrice } = props
 
-	const [isInitial, setIsInitial] = useState(false);
-	const [isModal, setIsModal] = useState(false);
-	const [isSend, setIsSend] = useState(false);
-	const [isMinTotal, setIsMinTotal] = useState(false);
+    const [isInitial, setIsInitial] = useState(false);
+    const [isModal, setIsModal] = useState(false);
+    const [isSend, setIsSend] = useState(false);
+    const [isMinTotal, setIsMinTotal] = useState(false);
 
-	const onRemoveCart = () => {
-		acOnRemoveCart();
-	};
+    const onRemoveCart = () => {
+        acOnRemoveCart();
+    };
 
-	const onClear = (id) => {
-		acOnClear(id);
-	};
+    const onClear = (id) => {
+        acOnClear(id);
+    };
 
-	const onChangeCount = (val, id) => {
-		acOnChangeCount(val, id);
-	};
+    const onChangeCount = (val, id) => {
+        acOnChangeCount(val, id);
+    };
 
-	useEffect(() => {
-		setIsInitial(true);
-	}, []);
+    useEffect(() => {
+        setIsInitial(true);
+    }, []);
 
-	useEffect(() => {
-		if (isInitial) {
-			lscache.set("cart", cart);
-		}
-	}, [cart]);
+    useEffect(() => {
+        if (isInitial) {
+            lscache.set("cart", cart);
+        }
+    }, [cart]);
 
-	const submitOrder = () => {
+    const submitOrder = () => {
 
-		const order = {
-			Client_id: auth.userId,
-			Comment: comment,
-			delivery: typeDelivery,
-			deliveryAddresses: deliveryAdress,
-			payment: typePayment,
-			goods: cartItems,
-		};
-		newCartOrder(order)
-			.then(() => {
-				acOnRemoveCart();
-				setIsSend(true);
-				setTimeout(() => {
-					setIsSend(false);
-				}, 2000);
+        const order = {
+            Client_id: auth.userId,
+            Comment: comment,
+            delivery: typeDelivery,
+            deliveryAddresses: deliveryAdress,
+            payment: typePayment,
+            goods: cartItems,
+        };
+        newCartOrder(order)
+            .then(() => {
+                acOnRemoveCart();
+                setIsSend(true);
+                setTimeout(() => {
+                    setIsSend(false);
+                }, 2000);
 
-				acOnResetComments();
-			})
-			.catch(() => console.log("err"));
-	};
+                acOnResetComments();
+            })
+            .catch(() => console.log("err"));
+    };
 
-	const onSubmitCart = () => {
-		minPrice.OrderMinPrice <= total ? auth.isAuth ? submitOrder() : setIsModal(true) : setIsMinTotal(true)
-	};
+    const onSubmitCart = () => {
+        auth.isAuth ? minPrice.OrderMinPrice <= total ? submitOrder() : setIsMinTotal(true) : setIsModal(true)
+        // minPrice.OrderMinPrice <= total ? auth.isAuth ? submitOrder() : setIsModal(true) : setIsMinTotal(true)
+    };
 
-	return (
-		<div className="cart">
-			<div className="head">
-				<div className="image">
-					<span>фото</span>
-				</div>
-				<div className="text_box">
-					<div className="description">
-						<span>описание</span>
-					</div>
+    return (
+        <div className="cart">
+            <div className="head">
+                <div className="image">
+                    <span>фото</span>
+                </div>
+                <div className="text_box">
+                    <div className="description">
+                        <span>описание</span>
+                    </div>
 
-					<div className="weight">
-						<span>вес</span>
-					</div>
+                    <div className="weight">
+                        <span>вес</span>
+                    </div>
 
-					<div className="price">
-						<span>цена за 100шт</span>
-					</div>
+                    <div className="price">
+                        <span>цена за 100шт</span>
+                    </div>
 
-					<div className="nds">
-						<span>Ставка НДС</span>
-					</div>
+                    <div className="nds">
+                        <span>Ставка НДС</span>
+                    </div>
 
-					<div className="nds_summ">
-						<span>НДС</span>
-					</div>
+                    <div className="nds_summ">
+                        <span>НДС</span>
+                    </div>
 
-					<div className="type">
-						<span>Цена с НДС</span>
-					</div>
+                    <div className="type">
+                        <span>Цена с НДС</span>
+                    </div>
 
-					{isAuth ? (
-						<div className="status">
-							<span>Статус</span>
-						</div>
-					) : null}
+                    {isAuth ? (
+                        <div className="status">
+                            <span>Статус</span>
+                        </div>
+                    ) : null}
 
-					<div className="remove_cart">
-						<a
-							href="#"
-							onClick={(event) => {
-								event.preventDefault();
-								onRemoveCart();
-							}}
-						>
-							очистить всю корзину
-						</a>
-					</div>
-				</div>
-			</div>
+                    <div className="remove_cart">
+                        <a
+                            href="#"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                onRemoveCart();
+                            }}
+                        >
+                            очистить всю корзину
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-			{cartItems.length > 0 ? (
-				<>
-					{cartItems.map((cartItem) => {
-						const { barcode } = cartItem;
+            {cartItems.length > 0 ? (
+                <>
+                    {cartItems.map((cartItem) => {
+                        const { barcode } = cartItem;
 
-						return (
-							<React.Fragment key={barcode}>
-								<div className="desctop_table">
-									<CartItem
-										isAuth={isAuth}
-										cartItem={cartItem}
-										onClear={onClear}
-										onChangeCount={onChangeCount}
-										acOnIncCount={acOnIncCount}
-										acOnDecCount={acOnDecCount}
-									/>
-								</div>
-							</React.Fragment>
-						);
-					})}
+                        return (
+                            <div className="desctop_table" key={barcode}>
+                                <CartItem
+                                    isAuth={isAuth}
+                                    cartItem={cartItem}
+                                    onClear={onClear}
+                                    onChangeCount={onChangeCount}
+                                    acOnIncCount={acOnIncCount}
+                                    acOnDecCount={acOnDecCount}
+                                />
+                            </div>
+                        );
+                    })}
 
-					<TotalSum minPrice={minPrice}/>
+                    <TotalSum minPrice={minPrice} />
 
-					<SettingsCart />
+                    <SettingsCart />
 
-					<div className="button-block">
-						<button className="form_buttons_send" onClick={onSubmitCart}>
-							Оформить
-						</button>
-					</div>
-				</>
-			) : (
-				<MessageCartEmpty />
-			)}
+                    <div className="button-block">
+                        <button className="form_buttons_send" onClick={onSubmitCart}>
+                            Оформить
+                        </button>
+                    </div>
+                </>
+            ) : (
+                    <MessageCartEmpty />
+                )}
 
-			{isSend ? (
-				<ModalMiniWrapper setIsModal={setIsSend}>
-					<span className="MessText">Благодарим за оформление заказа!</span>
-				</ModalMiniWrapper>
-			) : null}
+            {isSend ? (
+                <ModalMiniWrapper setIsModal={setIsSend}>
+                    <span className="MessText">Благодарим за оформление заказа!</span>
+                </ModalMiniWrapper>
+            ) : null}
 
-			{isMinTotal ? (
-				<ModalMiniWrapper setIsModal={setIsMinTotal}>
-					<span className="MessText">Минимальная сумма заказа {minPrice.OrderMinPrice} руб.</span>
-				</ModalMiniWrapper>
-			) : null}
+            {isMinTotal ? (
+                <ModalMiniWrapper setIsModal={setIsMinTotal}>
+                    <span className="MessText">Минимальная сумма заказа {minPrice.OrderMinPrice} руб.</span>
+                </ModalMiniWrapper>
+            ) : null}
 
-			{isModal ? (
-				<ModalMiniWrapper setIsModal={setIsModal}>
-					<span className="MessText">
-						Для оформления заказа
+            {isModal ? (
+                <ModalMiniWrapper setIsModal={setIsModal}>
+                    <span className="MessText">
+                        Для оформления заказа
 						<Link href="/login">
-							<a className="linkToLogin"> войдите </a>
-						</Link>
+                            <a className="linkToLogin"> войдите </a>
+                        </Link>
 						в систему
 					</span>
-				</ModalMiniWrapper>
-			) : null}
+                </ModalMiniWrapper>
+            ) : null}
 
-			<style jsx>{`
+            <style jsx>{`
 				.cart {
 					width: 100%;
 					position: relative;
@@ -503,8 +502,8 @@ function CartBody(props) {
 					}
 				}
 			`}</style>
-		</div>
-	);
+        </div>
+    );
 }
 
 export default CartBody;

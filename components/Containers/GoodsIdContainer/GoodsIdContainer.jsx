@@ -40,9 +40,9 @@ export default function GoodsIdContainer({ID, giveItemName}) {
     } = useCard();
 
     const [isInitial, setIsInitial] = useState(false);
-    const [pic1, setPic1] = useState("");
-    const [pic2, setPic2] = useState("");
-    const [pic3, setPic3] = useState("");
+    const [pic1, setPic1] = useState([]);
+    const [pic2, setPic2] = useState([]);
+    const [pic3, setPic3] = useState([]);
     const [standart, setStandart] = useState({});
     const [analogs, setAnalogs] = useState({});
     const [type, setType] = useState();
@@ -77,24 +77,15 @@ export default function GoodsIdContainer({ID, giveItemName}) {
             if (!isFilter) {
                 getSettingsGood(ID, currentPage, countPage)
                     .then(data => {
-                        setPic1(
-                            data.StdList.Files.Pictures.length !== 0
-                                ? "http://pic.standart.by/" +
-                                data.StdList.Files.Pictures[0].FilePath.substr(12)
-                                : null
-                        );
-                        setPic2(
-                            data.StdList.Files.Schemes.length !== 0
-                                ? "http://pic.standart.by/" +
-                                data.StdList.Files.Schemes[0].FilePath.substr(12)
-                                : null
-                        );
-                        setPic3(
-                            data.StdList.Files.Tables.length !== 0
-                                ? "http://pic.standart.by/" +
-                                data.StdList.Files.Tables[0].FilePath.substr(12)
-                                : null
-                        );
+                        // setPic1(
+                        //     data.StdList.Files.Pictures.length !== 0
+                        //         ? "http://pic.standart.by/" +
+                        //         data.StdList.Files.Pictures[0].FilePath.substr(12)
+                        //         : null
+                        // );
+                        setPic1(data.StdList.Files.Pictures);
+                        setPic2(data.StdList.Files.Schemes);
+                        setPic3(data.StdList.Files.Tables);
                         setStandart(data.StdList.Properties);
                         addGoodsToCart(data.list);
                         setSize(Math.ceil(data.totalsize / countPage));

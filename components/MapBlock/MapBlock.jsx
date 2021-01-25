@@ -12,7 +12,7 @@ import {
 } from "react-yandex-maps";
 
 const points = [[53.801783, 27.591323]];
-
+console.dir(SearchControl)
 const MapBlock = () => (
 	<YMaps query={{ apikey: "30743603-2686-4016-9fe9-cd28f7e91923" }}>
 		<div className="map_block">

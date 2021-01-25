@@ -1,56 +1,96 @@
-import { disablePageScroll } from "scroll-lock";
+import {useState, useEffect} from "react"
+import SliderImage from "../../Elements/SliderImage";
+import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 export default function SettingsImages(props) {
 	const { pic1, pic2, pic3, standart, onChengeImage } = props;
+	const [isModal, setIsModal] = useState(false);
 
+	console.log(pic1, pic2, pic3)
 	return (
 		<div className="images">
 			<div className="images_item">
 				<div className="images_img">
-					{pic1 ? (
-						<img
-							src={pic1}
-							alt="pic1"
-							onClick={() => {
-								disablePageScroll(document.body);
-								onChengeImage(pic1);
-							}}
-						/>
-					) : (
-						<img src={"/image/gear.png"} alt="pic1" />
-					)}
+					{
+						pic1.length === 0 ? (
+							<img src={"/image/gear.png"} alt="pic1" />
+							) : (
+								pic1.map((pictures, index) => {
+									const name = pictures.Name
+									const path = "http://pic.standart.by/" + pictures.FilePath.substr(12)
+
+									if(index === 0) {
+										return (
+											<img
+												key={index}
+												src={path}
+												alt={name}
+												onClick={() => {
+													disablePageScroll(document.body);
+													onChengeImage(path);
+												}}
+											/>
+										)
+									}
+								})
+							)
+					}
 				</div>
 			</div>
 			<div className="images_item">
 				<div className="images_img">
-					{pic2 ? (
-						<img
-							src={pic2}
-							alt="pic2"
-							onClick={() => {
-								disablePageScroll(document.body);
-								onChengeImage(pic2);
-							}}
-						/>
-					) : (
-						<img src={"/image/gear.png"} alt="pic2" />
-					)}
+					{
+						pic2.length === 0 ? (
+							<img src={"/image/gear.png"} alt="pic1" />
+						) : (
+							pic2.map((pictures, index) => {
+								const name = pictures.Name
+								const path = "http://pic.standart.by/" + pictures.FilePath.substr(12)
+
+								if(index === 0) {
+									return (
+										<img
+											key={index}
+											src={path}
+											alt={name}
+											onClick={() => {
+												disablePageScroll(document.body);
+												onChengeImage(path);
+											}}
+										/>
+									)
+								}
+							})
+						)
+					}
 				</div>
 			</div>
 			<div className="images_item">
 				<div className="images_img">
-					{pic3 ? (
-						<img
-							src={pic3}
-							alt="pic3"
-							onClick={() => {
-								disablePageScroll(document.body);
-								onChengeImage(pic3);
-							}}
-						/>
-					) : (
-						<img src={"/image/gear.png"} alt="pic3" />
-					)}
+					{
+						pic3.length === 0 ? (
+							<img src={"/image/gear.png"} alt="pic1" />
+						) : (
+							pic3.map((pictures, index) => {
+								const name = pictures.Name
+								const path = "http://pic.standart.by/" + pictures.FilePath.substr(12)
+
+								if(index === 0) {
+									return (
+										<img
+											key={index}
+											src={path}
+											alt={name}
+											onClick={() => {
+												disablePageScroll(document.body);
+												setIsModal(true)
+											}}
+										/>
+									)
+								}
+							})
+						)
+					}
 				</div>
 			</div>
 			<div className="images_item">
@@ -73,6 +113,10 @@ export default function SettingsImages(props) {
 					</ul>
 				</div>
 			</div>
+			{
+				isModal ? <SliderImage array={pic3} setIsModal={setIsModal}/> : null
+			}
+
 			<style jsx>{`
 				.images {
 					display: flex;

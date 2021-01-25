@@ -3,7 +3,7 @@ import React from "react";
 import Layout, { siteTitle } from "../components/layout";
 import BannerTop from "../components/BannerTop";
 import CartBody from "../components/CartBody";
-import {getOrderMinPrice} from "../action/getOrder";
+import { getOrderMinPrice } from "../action/getOrder";
 
 Cart.getInitialProps = async () => {
 	const minPrice = await getOrderMinPrice()
@@ -17,7 +17,6 @@ export default function Cart(props) {
 	const path_link = [{ label: "Главная", path: "/" }];
 
 	const { minPrice } = props;
-
 	return (
 		<Layout>
 			<Head>
@@ -33,7 +32,7 @@ export default function Cart(props) {
 				<div className="cart">
 					<div className="container">
 						<div className="box">
-							<CartBody minPrice={minPrice}/>
+							<CartBody minPrice={minPrice} />
 						</div>
 					</div>
 				</div>
