@@ -4,9 +4,11 @@ import {Carousel} from "react-responsive-carousel"
 
 
 export default function SliderImage(props) {
-    const {setIsModal, array} = props;
+    const {setIsModal, array, picOther} = props;
+    console.log(picOther);
+    const newPicOther = picOther.filter(item => item.Type === '')
 
-    const newArr = array.map(item => {
+    const newArr = [...array, ...newPicOther].map(item => {
         return "http://pic.standart.by/" + item.FilePath.substr(12)
     })
 
@@ -28,11 +30,11 @@ export default function SliderImage(props) {
                 }}
             />
             <div className="content">
-                <Carousel showArrows={true} showIndicators={false}>
+                <Carousel showArrows={true} showIndicators={false} axis={'vertical'} dynamicHeight={true}>
                     {
                         newArr.map((img, idx) => {
                             return (
-                                <div>
+                                <div key={idx}>
                                     <img src={img} alt={idx}/>
                                 </div>
                             )
@@ -73,6 +75,7 @@ export default function SliderImage(props) {
 					background-repeat: no-repeat;
 					cursor: pointer;
 				}
+
 			`}</style>
         </div>
     );

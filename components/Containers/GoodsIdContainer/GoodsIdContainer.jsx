@@ -43,6 +43,7 @@ export default function GoodsIdContainer({ID, giveItemName}) {
     const [pic1, setPic1] = useState([]);
     const [pic2, setPic2] = useState([]);
     const [pic3, setPic3] = useState([]);
+    const [picOther, setPicOther] = useState([]);
     const [standart, setStandart] = useState({});
     const [analogs, setAnalogs] = useState({});
     const [type, setType] = useState();
@@ -54,7 +55,7 @@ export default function GoodsIdContainer({ID, giveItemName}) {
     const [loading, setLoading] = useState(true);
     const [isFilter, setIsFilter] = useState(false);
     const [notGoods, setNotGoods] = useState(false);
-
+    
     useEffect(() => {
         if (ID) {
             setLoading(true);
@@ -83,6 +84,7 @@ export default function GoodsIdContainer({ID, giveItemName}) {
                         //         data.StdList.Files.Pictures[0].FilePath.substr(12)
                         //         : null
                         // );
+                        setPicOther(data.StdList.Files.Other)
                         setPic1(data.StdList.Files.Pictures);
                         setPic2(data.StdList.Files.Schemes);
                         setPic3(data.StdList.Files.Tables);
@@ -178,6 +180,7 @@ export default function GoodsIdContainer({ID, giveItemName}) {
             pic1={pic1}
             pic2={pic2}
             pic3={pic3}
+            picOther={picOther}
             standart={standart}
             isAuth={isAuth}
         />

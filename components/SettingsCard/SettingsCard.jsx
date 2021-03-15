@@ -30,6 +30,7 @@ export default function SettingsCard(props) {
 		pic2,
 		pic3,
 		standart,
+		picOther
 	} = props;
 
 	const [isModalImage, setIsModalImage] = useState(false);
@@ -43,6 +44,7 @@ export default function SettingsCard(props) {
 	return (
 		<div className="container_settings">
 			<SettingsImages
+				picOther={picOther}
 				pic1={pic1}
 				pic2={pic2}
 				pic3={pic3}

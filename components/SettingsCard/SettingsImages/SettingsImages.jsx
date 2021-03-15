@@ -3,10 +3,9 @@ import SliderImage from "../../Elements/SliderImage";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 export default function SettingsImages(props) {
-	const { pic1, pic2, pic3, standart, onChengeImage } = props;
+	const { pic1, pic2, pic3, standart, onChengeImage, picOther } = props;
 	const [isModal, setIsModal] = useState(false);
 
-	console.log(pic1, pic2, pic3)
 	return (
 		<div className="images">
 			<div className="images_item">
@@ -114,7 +113,7 @@ export default function SettingsImages(props) {
 				</div>
 			</div>
 			{
-				isModal ? <SliderImage array={pic3} setIsModal={setIsModal}/> : null
+				isModal ? <SliderImage array={pic3} picOther={picOther} setIsModal={setIsModal}/> : null
 			}
 
 			<style jsx>{`
